@@ -1,67 +1,88 @@
 <template>
-  <div class="p-6">
-    <h2 class="text-3xl font-bold mb-6 text-gray-800">Dashboard Overview</h2>
-    <div v-if="loading" class="text-gray-500 text-center py-8">Loading dashboard data...</div>
-    <div v-if="error" class="text-red-600 bg-red-50 p-4 rounded-lg">{{ error }}</div>
-    <div v-if="dashboardData" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-200">
+  <div class="p-6 lg:p-8">
+    <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Dashboard Overview</h1>
+
+    <div v-if="loading" class="text-center py-12">
+      <div class="inline-flex items-center gap-2 text-slate-400">
+        <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+        </svg>
+        Loading dashboard data...
+      </div>
+    </div>
+
+    <div v-if="error" class="text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-4 rounded-xl text-sm border border-red-100 dark:border-red-900/30">{{ error }}</div>
+
+    <div v-if="dashboardData" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card-premium p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-semibold mb-2 text-blue-800">Total Blogs</h3>
-            <p class="text-4xl font-bold text-blue-600">{{ dashboardData.blogs }}</p>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Blogs</p>
+            <p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">{{ dashboardData.blogs }}</p>
           </div>
-          <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-            <i class="fas fa-blog text-white text-xl"></i>
+          <div class="w-10 h-10 bg-brand-50 dark:bg-brand-900/30 rounded-xl flex items-center justify-center border border-brand-100 dark:border-brand-900/30">
+            <svg class="w-5 h-5 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+            </svg>
           </div>
         </div>
       </div>
-      <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-green-200">
+      <div class="card-premium p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-semibold mb-2 text-green-800">Total Subscribers</h3>
-            <p class="text-4xl font-bold text-green-600">{{ dashboardData.subscribers }}</p>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Subscribers</p>
+            <p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">{{ dashboardData.subscribers }}</p>
           </div>
-          <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-            <i class="fas fa-users text-white text-xl"></i>
+          <div class="w-10 h-10 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center border border-emerald-100 dark:border-emerald-900/30">
+            <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+            </svg>
           </div>
         </div>
       </div>
-      <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-red-200">
+      <div class="card-premium p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-semibold mb-2 text-red-800">Total Comments</h3>
-            <p class="text-4xl font-bold text-red-600">{{ dashboardData.comments }}</p>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Comments</p>
+            <p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">{{ dashboardData.comments }}</p>
           </div>
-          <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-            <i class="fas fa-comments text-white text-xl"></i>
+          <div class="w-10 h-10 bg-amber-50 dark:bg-amber-900/30 rounded-xl flex items-center justify-center border border-amber-100 dark:border-amber-900/30">
+            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
           </div>
         </div>
       </div>
-      <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-purple-200">
+      <div class="card-premium p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-semibold mb-2 text-purple-800">Total Visitors</h3>
-            <p class="text-4xl font-bold text-purple-600">{{ dashboardData.total_visitors }}</p>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Visitors</p>
+            <p class="text-3xl font-bold text-slate-900 dark:text-white mt-1">{{ dashboardData.total_visitors }}</p>
           </div>
-          <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
-            <i class="fas fa-eye text-white text-xl"></i>
+          <div class="w-10 h-10 bg-violet-50 dark:bg-violet-900/30 rounded-xl flex items-center justify-center border border-violet-100 dark:border-violet-900/30">
+            <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
           </div>
         </div>
       </div>
     </div>
-    <div class="mt-6 bg-white p-6 rounded shadow">
-      <h3 class="text-lg font-semibold mb-4 text-gray-700">To Do List</h3>
-      <form @submit.prevent="addTask" class="mb-4">
-        <div class="flex gap-2">
-          <input v-model="newTask" type="text" placeholder="Add a new task..." class="flex-1 p-2 border border-gray-300 rounded bg-black text-white" required>
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add</button>
-        </div>
+
+    <div class="card-premium mt-8 p-6">
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">To Do List</h3>
+      <form @submit.prevent="addTask" class="flex gap-2 mb-4">
+        <input v-model="newTask" type="text" placeholder="Add a new task..." class="input flex-1">
+        <button type="submit" class="btn-primary shrink-0">Add</button>
       </form>
       <ul class="space-y-2">
-        <li v-for="(task, index) in tasks" :key="task.id" class="flex justify-between items-center p-2 border border-gray-200 rounded">
-          <span class="text-black">{{ task.text }}</span>
-          <button @click="deleteTask(index)" class="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-100 transition-all duration-200" title="Delete">
-            <i class="fas fa-trash"></i>
+        <li v-for="(task, index) in tasks" :key="task.id" class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+          <span class="text-sm text-slate-700 dark:text-slate-300">{{ task.text }}</span>
+          <button @click="deleteTask(index)" class="text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors p-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
           </button>
         </li>
       </ul>
@@ -123,57 +144,6 @@ export default {
         this.tasks = JSON.parse(saved)
       }
     },
-
   }
 }
 </script>
-
-<style scoped>
-.bg-white {
-  background-color: white;
-}
-.shadow {
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.rounded {
-  border-radius: 6px;
-}
-.p-4 {
-  padding: 1rem;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-.font-semibold {
-  font-weight: 600;
-}
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-.mb-4 {
-  margin-bottom: 1rem;
-}
-.grid {
-  display: grid;
-}
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-.md\:grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.gap-6 {
-  gap: 1.5rem;
-}
-.text-gray-500 {
-  color: #6b7280;
-}
-.text-red-600 {
-  color: #dc2626;
-}
-</style>

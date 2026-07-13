@@ -1,34 +1,46 @@
 <template>
-  <div class="p-6">
-    <h2 class="text-3xl font-bold mb-6 text-gray-800 flex items-center justify-between">
-      Subscribers
-      <button
-        @click="fetchSubscribers"
-        class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-        :disabled="loading"
-      >
-        <i class="fas fa-refresh mr-2"></i> Refresh
+  <div class="p-6 lg:p-8">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Subscribers</h1>
+      <button @click="fetchSubscribers" class="btn-outline text-sm" :disabled="loading">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Refresh
       </button>
-    </h2>
-    <div v-if="loading" class="text-gray-500 text-center py-8">Loading subscribers...</div>
-    <div v-if="error" class="text-red-600 bg-red-50 p-4 rounded-lg">{{ error }}</div>
-    <div v-if="subscribers.length" class="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
+    </div>
+
+    <div v-if="loading" class="text-center py-12">
+      <div class="inline-flex items-center gap-2 text-slate-400">
+        <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+        </svg>
+        Loading subscribers...
+      </div>
+    </div>
+
+    <div v-if="error" class="text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-4 rounded-xl text-sm mb-6 border border-red-100 dark:border-red-900/30">{{ error }}</div>
+
+    <div v-if="subscribers.length" class="card-premium overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-            <tr>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">ID</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Email</th>
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">Actions</th>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">#</th>
+              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Email</th>
+              <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <tr v-for="(sub, index) in subscribers" :key="sub.id" class="hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 transition-colors duration-200">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">{{ index + 1 }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ sub.email }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                <button @click="deleteSubscriber(sub.id)" class="text-red-600 hover:text-red-800 p-2 rounded-full hover:bg-red-100 transition-all duration-200" title="Delete">
-                  <i class="fas fa-trash"></i>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            <tr v-for="(sub, index) in subscribers" :key="sub.id" class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+              <td class="px-6 py-4 whitespace-nowrap text-slate-500 dark:text-slate-400">{{ index + 1 }}</td>
+              <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900 dark:text-white">{{ sub.email }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-right">
+                <button @click="deleteSubscriber(sub.id)" class="p-2 text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20" title="Delete">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
                 </button>
               </td>
             </tr>
@@ -36,7 +48,14 @@
         </table>
       </div>
     </div>
-    <div v-else class="text-gray-600 text-center py-8">No subscribers found.</div>
+    <div v-else-if="!loading" class="text-center py-12">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+        </svg>
+      </div>
+      <p class="text-slate-500 dark:text-slate-400">No subscribers found.</p>
+    </div>
   </div>
 </template>
 
@@ -60,12 +79,9 @@ export default {
       this.loading = true
       this.error = ""
       try {
-        // Add Authorization header with token if available
         const token = localStorage.getItem('token')
         const headers = token ? { Authorization: `Bearer ${token}` } : {}
-
         const response = await API.get('/subscribers/', { headers })
-        console.log('Subscribers API response:', response)
         this.subscribers = response.data
       } catch (err) {
         this.error = "Failed to load subscribers."
@@ -89,35 +105,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  color: #2d3748; /* Dark text for table body */
-}
-th, td {
-  text-align: left;
-  padding: 12px 16px;
-  border-bottom: 1px solid #e2e8f0;
-  border-right: 1px solid #e2e8f0;
-  color: #2d3748; /* Dark text for cells */
-}
-th {
-  background-color: #2d3748; /* Darker gray */
-  color: #edf2f7; /* Light gray */
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-tbody tr:hover {
-  background-color: #f7fafc; /* Light hover */
-  cursor: pointer;
-}
-</style>

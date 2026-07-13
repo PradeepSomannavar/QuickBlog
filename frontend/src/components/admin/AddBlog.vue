@@ -1,97 +1,76 @@
 <template>
-  <div class="p-6">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-3xl font-bold text-gray-800 mb-6">Add New Blog</h1>
-      <div class="bg-white rounded-lg shadow-md p-6">
+  <div class="p-6 lg:p-8">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Add New Blog</h1>
+      <div class="card-premium p-6 lg:p-8">
         <form @submit.prevent="submitBlog" class="space-y-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-            <input
-              type="text"
-              placeholder="Enter blog title"
-              v-model="title"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-            />
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Title</label>
+            <input type="text" placeholder="Enter blog title" v-model="title" required class="input">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
-            <input
-              type="text"
-              placeholder="Enter blog subtitle"
-              v-model="subtitle"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-            />
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Subtitle</label>
+            <input type="text" placeholder="Enter blog subtitle" v-model="subtitle" required class="input">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-            <div class="flex items-center space-x-4">
-              <input
-                type="file"
-                @change="onFileChange"
-                class="hidden"
-                id="file-upload"
-              />
-              <label for="file-upload" class="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors duration-200">
-                <i class="fas fa-upload mr-2"></i> Choose File
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Image</label>
+            <div class="flex items-center gap-4">
+              <input type="file" @change="onFileChange" class="hidden" id="file-upload" accept="image/*" />
+              <label for="file-upload" class="btn-outline cursor-pointer">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                </svg>
+                Choose File
               </label>
-              <span class="text-gray-500">{{ fileName || 'No file chosen' }}</span>
+              <span class="text-sm text-slate-500 dark:text-slate-400">{{ fileName || 'No file chosen' }}</span>
             </div>
           </div>
-          <div class="relative">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-            <textarea
-              placeholder="Write your blog description here..."
-              v-model="description"
-              rows="6"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
-            ></textarea>
-            <button
-              type="button"
-              @click="generateWithAI"
-              class="absolute bottom-3 right-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-md text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-md"
-            >
-              <i class="fas fa-magic mr-1"></i> Generate with AI
-            </button>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Description</label>
+            <div class="relative">
+              <textarea
+                placeholder="Write your blog description here..."
+                v-model="description"
+                rows="8"
+                class="input resize-none"
+              ></textarea>
+              <button
+                type="button"
+                @click="generateWithAI"
+                class="absolute bottom-3 right-3 btn text-xs bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/50 border-0 rounded-lg"
+              >
+                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Generate with AI
+              </button>
+            </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-            <select
-              v-model="category"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-            >
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Category</label>
+            <select v-model="category" class="input">
               <option value="">Select Category</option>
-              <option value="1">Tech</option>
-              <option value="2">AI</option>
-              <option value="3">Lifestyle</option>
-              <option value="4">Finance</option>
+              <option value="1">Technology</option>
+              <option value="2">Design</option>
+              <option value="3">Business</option>
+              <option value="4">Lifestyle</option>
+              <option value="5">Travel</option>
+              <option value="6">Food</option>
             </select>
           </div>
-          <div class="flex items-center">
-            <input
-              type="checkbox"
-              v-model="publishNow"
-              id="publish-now"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <label for="publish-now" class="ml-2 block text-sm text-gray-900">
-              Publish immediately
-            </label>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" v-model="publishNow" id="publish-now" class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-brand-600 focus:ring-brand-500">
+            <label for="publish-now" class="text-sm text-slate-700 dark:text-slate-300">Publish immediately</label>
           </div>
-          <div class="flex space-x-4">
-            <button
-              type="submit"
-              class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <i class="fas fa-save mr-2"></i> Save Blog
+          <div class="flex gap-3 pt-2">
+            <button type="submit" class="btn-primary">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+              </svg>
+              Save Blog
             </button>
-            <button
-              type="button"
-              @click="resetForm"
-              class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <i class="fas fa-undo mr-2"></i> Reset
+            <button type="button" @click="resetForm" class="btn-outline">
+              Reset
             </button>
           </div>
         </form>
@@ -102,6 +81,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import API from '../../services/api.js'
 
 const title = ref('')
 const subtitle = ref('')
@@ -109,25 +89,19 @@ const description = ref('')
 const category = ref('')
 const publishNow = ref(false)
 const fileName = ref('')
-const isGenerating = ref(false)
 
 function onFileChange(event) {
   const file = event.target.files[0]
   if (file) {
     fileName.value = file.name
   }
-  console.log(file)
 }
-
-import API from '../../services/api.js'
 
 async function generateWithAI() {
   if (!title.value.trim()) {
     alert('Please enter a title first!')
     return
   }
-
-  isGenerating.value = true
   try {
     const response = await API.post('/ai/generate', {
       title: title.value,
@@ -138,8 +112,6 @@ async function generateWithAI() {
   } catch (error) {
     console.error('AI generation failed:', error)
     alert('Failed to generate content with AI. Please try again.')
-  } finally {
-    isGenerating.value = false
   }
 }
 
@@ -152,41 +124,31 @@ function resetForm() {
   fileName.value = ''
 }
 
-import { useRouter } from 'vue-router'
-const router = useRouter()
+async function submitBlog() {
+  try {
+    const token = localStorage.getItem('token')
+    const headers = token ? { Authorization: `Bearer ${token}` } : {}
 
-    async function submitBlog() {
-      try {
-        const token = localStorage.getItem('token')
-        const headers = token ? { Authorization: `Bearer ${token}` } : {}
-
-        const formData = new FormData()
-        formData.append('title', title.value)
-        formData.append('subtitle', subtitle.value)
-        formData.append('description', description.value)
-        formData.append('category_id', category.value)
-        formData.append('publish_now', publishNow.value)
-        const fileInput = document.getElementById('file-upload')
-        if (fileInput && fileInput.files[0]) {
-          formData.append('thumbnail', fileInput.files[0])
-        }
-
-        const response = await API.post('/blogs/', formData, {
-          headers: {
-            ...headers,
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-
-        alert('Blog added successfully!')
-        resetForm()
-        // Removed redirect to blog-list page as per user request
-        // router.push('/blog-list')
-      } catch (error) {
-        console.error('Failed to add blog:', error)
-        alert(error.response && error.response.data && error.response.data.details ? `Failed to add blog: ${error.response.data.details}` : 'Failed to add blog. Please try again.')
-      }
+    const formData = new FormData()
+    formData.append('title', title.value)
+    formData.append('subtitle', subtitle.value)
+    formData.append('description', description.value)
+    formData.append('category_id', category.value)
+    formData.append('publish_now', publishNow.value)
+    const fileInput = document.getElementById('file-upload')
+    if (fileInput && fileInput.files[0]) {
+      formData.append('thumbnail', fileInput.files[0])
     }
+
+    await API.post('/blogs/', formData, {
+      headers: { ...headers, 'Content-Type': 'multipart/form-data' }
+    })
+
+    alert('Blog added successfully!')
+    resetForm()
+  } catch (error) {
+    console.error('Failed to add blog:', error)
+    alert(error.response?.data?.details || 'Failed to add blog. Please try again.')
+  }
+}
 </script>
-
-

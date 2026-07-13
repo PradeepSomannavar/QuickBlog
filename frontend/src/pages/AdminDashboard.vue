@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-gray-100 h-screen">
+  <div class="flex min-h-screen bg-slate-50 dark:bg-[#020617]">
     <Sidebar @update-section="currentSection = $event" />
     <div class="flex-1 overflow-auto">
       <DashboardSection v-if="currentSection==='dashboard'" />
@@ -22,5 +22,3 @@ import SubscriberSection from '../components/admin/SubscriberSection.vue'
 
 const currentSection = ref('dashboard')
 </script>
-
-

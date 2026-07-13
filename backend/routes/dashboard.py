@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required
-from models import Blog, Comment, Subscriber
+from models import Blog, Comment, Subscriber, Contact, PageView
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
@@ -9,44 +9,25 @@ dashboard_bp = Blueprint("dashboard", __name__)
 def get_stats():
     total_blogs = Blog.query.count()
     total_drafts = Blog.query.filter_by(status="draft").count()
+    total_published = Blog.query.filter_by(status="published").count()
     total_comments = Comment.query.count()
-    total_subscribers = Subscriber.query.count()
+    total_pending_comments = Comment.query.filter_by(approved=False).count()
+    total_subscribers = Subscriber.query.filter_by(active=True).count()
+    total_messages = Contact.query.count()
+    total_unread_messages = Contact.query.filter_by(is_read=False).count()
 
-    # Fetch recent blogs (latest 5)
-    recent_blogs = Blog.query.order_by(Blog.created_at.desc()).limit(5).all()
-    recent_blogs_data = [
-        {
-            "id": blog.id,
-            "title": blog.title,
-            "created_at": blog.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            "status": blog.status
-        }
-        for blog in recent_blogs
-    ]
-
-    # TODO: Implement visitor tracking and get total visitors count
-    total_visitors = 0
-
-    # Fetch recent comments (latest 5)
-    recent_comments = Comment.query.order_by(Comment.created_at.desc()).limit(5).all()
-    recent_comments_data = [
-        {
-            "id": comment.id,
-            "blog_id": comment.blog_id,
-            "name": comment.name,
-            "comment": comment.comment,
-            "created_at": comment.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            "approved": comment.approved
-        }
-        for comment in recent_comments
-    ]
+    total_page_views = PageView.query.count()
+    total_blog_views = db.session.query(db.func.sum(Blog.views)).scalar() or 0
 
     return jsonify({
         "blogs": total_blogs,
         "drafts": total_drafts,
+        "published": total_published,
         "comments": total_comments,
+        "pending_comments": total_pending_comments,
         "subscribers": total_subscribers,
-        "recent_blogs": recent_blogs_data,
-        "recent_comments": recent_comments_data,
-        "total_visitors": total_visitors
+        "messages": total_messages,
+        "unread_messages": total_unread_messages,
+        "page_views": total_page_views,
+        "total_visitors": total_blog_views + total_page_views,
     })

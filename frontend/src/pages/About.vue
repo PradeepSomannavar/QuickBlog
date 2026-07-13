@@ -1,79 +1,96 @@
 <template>
   <div>
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] text-white py-24">
-      <div class="container mx-auto px-6 text-center">
-        <h1 class="text-6xl font-extrabold mb-6 tracking-tight">About QuickBlog</h1>
-        <p class="text-xl max-w-3xl mx-auto leading-relaxed opacity-90">
-          A fast, simple, and modern way to connect writers and readers.
-          Quick reads that leave lasting thoughts.
-        </p>
-      </div>
-    </section>
+    <Navbar />
+    <div class="pt-24 lg:pt-28">
+      <section class="relative py-20 lg:py-28 bg-slate-50/50 dark:bg-[#0f172a]/30 border-b border-slate-100 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-in">
+          <span class="badge-brand mb-4 inline-block">About Us</span>
+          <h1 class="section-heading mb-4">About <span class="text-brand-600">QuickBlog</span></h1>
+          <p class="section-subheading mx-auto text-lg">
+            A fast, simple, and modern way to connect writers and readers. Quick reads that leave lasting thoughts.
+          </p>
+        </div>
+      </section>
 
-    <!-- What Makes QuickBlog Different -->
-    <section class="py-20 bg-gray-100">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-14 text-gray-800">
-          What Makes Us Different
-        </h2>
-        <div class="grid md:grid-cols-3 gap-10">
-          <!-- Card -->
-          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl hover:scale-105 hover:shadow-2xl transition-all text-center border-t-4 border-[#2c5364]">
-            <h3 class="text-2xl font-semibold mb-4 text-[#2c5364]">⚡ Fresh Everyday</h3>
-            <p class="text-gray-600">Always new blogs waiting for you. No stagnation, no pause.</p>
+      <section class="py-20 lg:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16 animate-in">
+            <h2 class="section-heading mb-4">What Makes Us Different</h2>
+            <p class="section-subheading mx-auto">Three pillars that define everything we do.</p>
           </div>
-          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl hover:scale-105 hover:shadow-2xl transition-all text-center border-t-4 border-[#0f2027]">
-            <h3 class="text-2xl font-semibold mb-4 text-[#0f2027]">🌐 Diverse Worlds</h3>
-            <p class="text-gray-600">Tech, finance, ideas — a mix that connects curious minds.</p>
-          </div>
-          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl hover:scale-105 hover:shadow-2xl transition-all text-center border-t-4 border-[#203a43]">
-            <h3 class="text-2xl font-semibold mb-4 text-[#203a43]">🎯 Simple & Clear</h3>
-            <p class="text-gray-600">Quick reads. Straight value. No noise, no filler.</p>
+          <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="card-premium p-8 text-center animate-in animate-in-delay-1">
+              <div class="w-12 h-12 bg-brand-50 dark:bg-brand-900/30 rounded-xl flex items-center justify-center mx-auto mb-5">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Fresh Everyday</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Always new blogs waiting for you. No stagnation, no pause.</p>
+            </div>
+            <div class="card-premium p-8 text-center animate-in animate-in-delay-2">
+              <div class="w-12 h-12 bg-brand-50 dark:bg-brand-900/30 rounded-xl flex items-center justify-center mx-auto mb-5">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Diverse Worlds</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Tech, finance, ideas — a mix that connects curious minds.</p>
+            </div>
+            <div class="card-premium p-8 text-center animate-in animate-in-delay-3">
+              <div class="w-12 h-12 bg-brand-50 dark:bg-brand-900/30 rounded-xl flex items-center justify-center mx-auto mb-5">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Simple & Clear</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Quick reads. Straight value. No noise, no filler.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Why QuickBlog Exists -->
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-6 text-center max-w-3xl">
-        <h2 class="text-3xl font-bold mb-6 text-[#2c5364]">Why QuickBlog Exists</h2>
-        <p class="text-lg text-gray-600">
-          Because not everyone has time for endless scrolling. QuickBlog is made for readers who want
-          <span class="font-semibold text-[#2c5364]"> sharp insights in minutes.</span>
-        </p>
-      </div>
-    </section>
+      <section class="py-20 lg:py-28 bg-slate-50/50 dark:bg-[#0f172a]/30 border-y border-slate-100 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl animate-in">
+          <span class="badge-brand mb-4 inline-block">Our Mission</span>
+          <h2 class="section-heading mb-6">Why QuickBlog Exists</h2>
+          <p class="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+            Because not everyone has time for endless scrolling. QuickBlog is made for readers who want
+            <span class="font-semibold text-brand-600 dark:text-brand-400"> sharp insights in minutes.</span>
+          </p>
+        </div>
+      </section>
 
-    <!-- Meet the Creator -->
-    <section class="py-24 bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364]">
-      <div class="container mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold mb-14 text-white">Meet the Creator</h2>
-
-        <div class="relative max-w-lg mx-auto">
-          <!-- Glow effect -->
-          <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 blur-3xl opacity-40 rounded-3xl"></div>
-
-          <!-- Glass Card -->
-          <div class="relative bg-white/10 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20">
-            <h3 class="text-2xl font-semibold text-white mb-2">Pradeep Somannavar</h3>
+      <section class="py-20 lg:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-in">
+          <span class="badge-brand mb-4 inline-block">Creator</span>
+          <h2 class="section-heading mb-12">Meet the Creator</h2>
+          <div class="card-premium max-w-sm mx-auto p-8">
+            <div class="w-20 h-20 bg-brand-100 dark:bg-brand-900/30 rounded-full flex items-center justify-center mx-auto mb-5">
+              <span class="text-3xl font-bold text-brand-600 dark:text-brand-400">P</span>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-1">Pradeep Somannavar</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Creator & Developer</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Closing -->
-    <section class="py-20 bg-[#0f2027] text-white text-center">
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-        QuickBlog — Quick to read. Lasting to think.
-      </h2>
-    </section>
+      <section class="py-16 bg-slate-900 dark:bg-slate-950 text-white text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p class="text-2xl md:text-3xl font-bold tracking-tight">QuickBlog — Quick to read. Lasting to think.</p>
+        </div>
+      </section>
+    </div>
+    <FooterSection />
   </div>
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue"
+import FooterSection from "@/components/FooterSection.vue"
+
 export default {
   name: "AboutPage",
-};
+  components: { Navbar, FooterSection }
+}
 </script>
